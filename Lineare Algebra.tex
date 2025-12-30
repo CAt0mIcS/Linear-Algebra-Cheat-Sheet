@@ -17,10 +17,20 @@
 }
 
 \newcommand{\equival}[0]{\ensuremath{\Longleftrightarrow}}
-\newcommand{\spann}{\ensuremath{\text{spann}}}
-\newcommand{\Kern}{\ensuremath{\text{Kern }}}
-\newcommand{\Bild}{\ensuremath{\text{Bild }}}
+% \newcommand{\spann}[1]{
+%     \IfNoValueTF{#1}{\ensuremath{\operatorname{spann }}}{\ensuremath{\operatorname{spann(#1)}}}
+% }
+% \newcommand{\Rang}[1]{
+%     \IfNoValueTF{#1}{\ensuremath{\operatorname{Rang }}}{\ensuremath{\operatorname{Rang(#1)}}}
+% }
+% \newcommand{\Kern}{\ensuremath{\operatorname{Kern }}}
+% \newcommand{\Bild}{\ensuremath{\operatorname{Bild }}}
 	
+\DeclareMathOperator{\spann}{spann}
+\DeclareMathOperator{\Rang}{Rang}
+\DeclareMathOperator{\Kern}{Kern}
+\DeclareMathOperator{\Bild}{Bild}
+
 \begin{document}
 
 \titlespacing*{\subsubsection} {0pt}{0.5ex}{0.0ex}
@@ -34,11 +44,6 @@
 \fstitle{Lineare Algebra}
 
 \section{Grundlagen}
-\textbf{Dreiecksungleichung}\\
-\begin{math}\begin{array}{l}
-        \abs{x + y} \le \abs{x} + \abs{y} \\
-        \abs{\abs{x}- \abs{y}} \le \abs{x-y}
-    \end{array}\end{math} \\
 TODO: Modulo und $\mathbb{Z_n}$
 
 \subsection{Mengenlehre}
@@ -48,11 +53,13 @@ TODO: Modulo und $\mathbb{Z_n}$
         \item $\emptyset \subset B $
         \item $A \setminus (B \cup C) = (A \setminus B) \cap (A \setminus C)$
         \item $(A \cap B) \cap C = A \cap (B \cap C)$\\
-                $(A \cup B) \cup C = A \cup (B \cup C)$
+              $(A \cup B) \cup C = A \cup (B \cup C)$
         \item $A \cap (B \cup C) = (A \cap B) \cup (A \cap C) \\
-                    A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$
+                  A \cup (B \cap C) = (A \cup B) \cap (A \cup C)$
         \item $A \triangle B = (A \cup B) \setminus (A \cap B)$\\
-                symmetr. Differenz zweier Mengen: Alle Elemente, die entweder in A oder B enthalten sind.
+              symmetr. Differenz zweier Mengen: Alle Elemente, die entweder in A oder B enthalten sind.
+        \item $A \times B=\{(a_1, b_1), ..., (a_1, b_n), (a_2, b_1), ...\}$ \\
+              direktes Produkt zweier Mengen, ordnet jedem Element aus $A$ jedes Element aus $B$ zu (Tupel)
     \end{enumerate}
 \end{sectionbox}
 
@@ -66,8 +73,9 @@ TODO: Modulo und $\mathbb{Z_n}$
     \begin{itemize}\itemsep1pt
         \item Sei $y\in B$, finde $x \in A$ mit $f(x)=y$
         \item Durch Einsetzen ergibt sich $y=f(x)$, kann man dies nach $x$ auflösen, so ist $f$ surjektiv. \\
-                Ist $B=K^n$, z.B. $n=2$, so wählt man $(a, b) \in K^2, f(x, y)=(a,b)$ und löst das lin. Gleichungssystem nach $x$ und $y$ auf
+              Ist $B=K^n$, z.B. $n=2$, so wählt man $(a, b) \in K^2, f(x, y)=(a,b)$ und löst das lin. Gleichungssystem nach $x$ und $y$ auf
     \end{itemize}
+    \colorbox{yellow}{$f$ surjektiv \equival $\Bild f = B$}
 
     \textbf{Injektivität}\\
     $f(x_1)=f(x_2) \Rightarrow x_1=x_2$. Zwei verschiedene Elemente der Definitionsmenge bilden nicht auf gleiche Elemente der Wertemenge ab.\\
@@ -76,7 +84,7 @@ TODO: Modulo und $\mathbb{Z_n}$
     \begin{itemize}
         \item $x_1, x_2 \in A$ mit $x_1\ne x_2$
         \item Gibt es eine Kombination von $x_1, x_2$, sodass $f(x_1)=f(x_2)$, so ist $f$ nicht injektiv\\
-                Ist $A=K^n$, z.B. $n=2$, so wählt man $(x_1, y_1), (x_2, y_2) \in K^2$ und vergleicht $f(x_1, y_1)=f(x_2,y_2)$. Hier erhält man zwei Gleichungen, setzt man die eine in die andere ein, so muss $x_1=x_2$ bzw. $y_1=y_2$ rauskommen.
+              Ist $A=K^n$, z.B. $n=2$, so wählt man $(x_1, y_1), (x_2, y_2) \in K^2$ und vergleicht $f(x_1, y_1)=f(x_2,y_2)$. Hier erhält man zwei Gleichungen, setzt man die eine in die andere ein, so muss $x_1=x_2$ bzw. $y_1=y_2$ rauskommen.
     \end{itemize}
     \colorbox{yellow}{$f$ injektiv \equival $\Kern f = \{0\}$}\\
     \colorbox{yellow}{$f$ injektiv \equival $f$ streng monoton steigend}
@@ -86,19 +94,19 @@ TODO: Modulo und $\mathbb{Z_n}$
     \subsubsection{Schnitt-/Vereinigungsbeweis von (Ur-)Bildern}
     \begin{itemize}
         \item $f^{-1}(N_1 \cup N_2) = f^{-1}(N_1) \cup f^{-1}(N_2)$\\
-                \vspace{-2mm}
-                \begin{enumerate}
-                    \item Sei $x\in f^{-1}(N_1 \cup N_2) \equival f(x) \in N_1 \cup N_2$
-                    \item Beweis weiterführen, bis man auf $x \in f^{-1}(N_1) \cup f^{-1}(N_2)$ kommt
-                \end{enumerate}
+              \vspace{-2mm}
+              \begin{enumerate}
+                  \item Sei $x\in f^{-1}(N_1 \cup N_2) \equival f(x) \in N_1 \cup N_2$
+                  \item Beweis weiterführen, bis man auf $x \in f^{-1}(N_1) \cup f^{-1}(N_2)$ kommt
+              \end{enumerate}
     \end{itemize}
     \begin{itemize}
         \item $f(M_1 \cup M_2) = f(M_1) \cup f(M_2)$\\
-                \vspace{-2mm}
-                \begin{enumerate}
-                    \item Sei $y \in f(M_1 \cup M_2)$ \equival $x\in M_1 \cup M_2$
-                    \item Beweis weiterführen, bis man auf $y \in f(M_1) \cup f(M_2)$ kommt
-                \end{enumerate}
+              \vspace{-2mm}
+              \begin{enumerate}
+                  \item Sei $y \in f(M_1 \cup M_2)$ \equival $x\in M_1 \cup M_2$
+                  \item Beweis weiterführen, bis man auf $y \in f(M_1) \cup f(M_2)$ kommt
+              \end{enumerate}
     \end{itemize}
 \end{sectionbox}
 
@@ -121,19 +129,19 @@ Menge mit einer Verknüpfung $\circ$ (z.B. $+$, $\cdot$) $\Rightarrow (M, \circ)
     \begin{enumerate}
         \item Die Gruppe abgeschlossen ist: $\forall a,b \in G:a \circ b \in G$
         \item  es zu jedem $a \in G$ ein $b\in G$ gibt mit $ab=ba=e$.\\
-                $b$ ist das Inverse von $a$ und ist eindeutig. Man schreibt $b=a^{-1}$
+              $b$ ist das Inverse von $a$ und ist eindeutig. Man schreibt $b=a^{-1}$
     \end{enumerate}
     \textbf{symmetrische Gruppe $S_n$:} Gruppe der Permutationen:\\
-    $(\overset{\textcolor{green}{1}}{1}, \overset{\textcolor{green}{2}}{3}, \overset{\textcolor{green}{3}}{2})(\overset{\textcolor{green}{1}}{2}, \overset{\textcolor{green}{2}}{3}, \overset{\textcolor{green}{3}}{1})=(3,2,1)$.
+    $(\overset{\textcolor{green}{1}}{1}, \overset{\textcolor{orange}{2}}{3}, \overset{\textcolor{green}{3}}{2})(\overset{\textcolor{red}{1}}{2}, \overset{\textcolor{green}{2}}{3}, \overset{\textcolor{green}{3}}{1})=(3,2,1)$.
     Von rechts nach links gelesen:
     \begin{enumerate}
-        \item Die Stelle $\textcolor{green}{1}$ wird auf die $2$ abgebildet, die Stelle $\textcolor{green}{2}$ wird auf die $3$ abgebildet. 1. Element des Ergebnisses, usw...
+        \item Die Stelle $\textcolor{red}{1}$ wird auf die $2$ abgebildet, die Stelle $\textcolor{orange}{2}$ wird auf die $3$ abgebildet. 1. Element des Ergebnisses, usw...
     \end{enumerate}
 \end{sectionbox}
 
 \begin{sectionbox}
     \subsubsection{Untergruppe}
-    Gruppe $(U \circ)$, wobei $U \subset G$. Dann ist $U$ Untergruppe von $G$ \\
+    Gruppe $(U, \circ)$, wobei $U \subset G$. Dann ist $U$ Untergruppe von $G$ \\
     \textbf{Axiome zum Beweis von Untergruppe:}
     \begin{enumerate}
         \item $e \in U$
@@ -173,7 +181,7 @@ Menge mit einer Verknüpfung $\circ$ (z.B. $+$, $\cdot$) $\Rightarrow (M, \circ)
         \item Vektoraddition: $V \times V\rightarrow V, (v,w) \mapsto v + w$
         \item Skalarmultiplikation: $K\times V \rightarrow V, (\lambda, v)\mapsto \lambda v$
     \end{enumerate}
-    wobei $\forall \lambda, \mu \in K$ und $v,w \in V$ gilt:
+    wobei $\forall \lambda, \mu \in K$ und $\forall v,w \in V$ gilt:
     \begin{enumerate}
         \item $(\lambda \mu)v=\lambda(\mu v)$
         \item $\lambda(v+w)=\lambda v + \lambda w$ und $(\lambda + \mu)v=\lambda v + \mu v$
@@ -187,17 +195,34 @@ Menge mit einer Verknüpfung $\circ$ (z.B. $+$, $\cdot$) $\Rightarrow (M, \circ)
     \begin{enumerate}
         \item $v+w \in U$
         \item $\lambda v \in U$
-        \item $U \neq \emptyset$ bzw. $e \in U$ (TODO: Welches $e$)
+        \item $U \neq \emptyset$ bzw. $e \in U$ ($\colorbox{yellow}{e}$ der kommut. Gruppe des Ringes)
     \end{enumerate}
-\end{sectionbox}
 
-TODO: Neue Vektorräume aus Alten
+    \subsubsection{direkte Summe zweier UVRs}
+    Zwei UVRs $U_1, U_2$ heißen direkte Summe $U_1 \oplus U_2$, wenn $U_1 \cap U_2= \{0\}$. D.h. zwei UVRs treffen sich nur im Ursprung (zwei Geraden (UVR vom $R^3$) schneiden sich nur im Ursprung)\\
+    In der Summe $U_1+U_2=\{u_1 + u_2 \vert u_1 \in U_1, u_2 \in U_2\}$ ist die Darstellung $u=u_1 + u_2$ eindeutig. Es gibt nur eine mögliche Linearkombination! (Aus ) Z.B.\\
+    $\{(x, 0) | x \in \mathbb{R}\} \oplus \{(0, y) | x \in \mathbb{R}\} = \mathbb{R}^2$, da $(x,y) = (x,0) + (0,y)$
+
+    \subsubsection{Neue UVRs aus Alten}
+    \begin{itemize}
+        \item $U_1 \cap U_2$ ist UVR
+        \item $U_1 + U_2$ ist UVR
+        \item $\Phi : V \rightarrow W$ linear mit $U \subset V, T \subset W$: \\
+              $\Phi(U)=\{\Phi(u) | u \in U\}$ UVR von $W$\\
+              $\Phi(T)=\{v \in V | \Phi(v) \in T\}$ UVR von $V$
+    \end{itemize}
+\end{sectionbox}
 
 \begin{sectionbox}
     \subsection{Spann}
-    $\spann(M)$ ist die Menge an TODO\\
-    $\spann(M)$ ist UVR von $V$, wenn $M \subset V$\\
-    Sind $U_1$ und $U_2$ UVR von $V$: $\spann(U_1 \cup U_2) = U_1 + U_2$
+    Menge aller Vektoren, die aus Linearkombination der Argumente (hier $v_1, v_2$) hervorgehen,\\
+    z.B.: $\spann(v_1, v_2)=\{av_1 + bv_2 | a,b \in \mathbb{R}\}$
+    \begin{itemize}
+        \item $\spann M$ ist UVR von $V$, wenn $M \subset V$
+        \item Sind $U_1$ und $U_2$ UVR von $V$: $\spann(U_1 \cup U_2) = U_1 + U_2$
+        \item $\spann \emptyset = \{0\}$
+        \item $\Phi : V \rightarrow W$ linear: $\spann(\Phi(V))=\Phi(\spann V)$
+    \end{itemize}
 \end{sectionbox}
 
 \section{Lineare Abbildungen}
@@ -206,12 +231,12 @@ Seien $V,W$ $K$-Vektorräume. Eine Abbildung $\Phi:V\rightarrow W$ heißt \textb
     \item $\Phi(0)=0$
     \item $\Phi(\lambda v + w) = \lambda\Phi(v) + \Phi(w)$
 \end{itemize}
+$L(V,W):=\{\Phi: V \rightarrow W | \Phi \text{ linear} \}$
 
 \begin{sectionbox}
-    \textbf{Endomorphismen: }Vektorraumhomomorphismen von $V$ auf sich selbst \\($\Phi:V\rightarrow V$) \\
-    \textbf{Isomorphismen: }Bijektive Vektorraumhomomorphismen\\
+    \textbf{Endomorphismen: }VR-Homomorphismen von $V$ auf sich selbst ($\Phi:V\rightarrow V$) \\
+    \textbf{Isomorphismen: }Bijektive VR-Homomorphismen\\
     \textbf{Automorphismen: }Bijektive Endomorphismen\\
-    $L(V,W):=\{\Phi: V \rightarrow W | \Phi \text{ linear} \}$
 \end{sectionbox}
 
 \begin{sectionbox}
@@ -226,7 +251,28 @@ Seien $V,W$ $K$-Vektorräume. Eine Abbildung $\Phi:V\rightarrow W$ heißt \textb
     $\Bild \Phi := \{\Phi(v) | v \in V\}$
 \end{sectionbox}
 
-CONTINUE HERE: %https://onedrive.live.com/view.aspx?resid=E1A89B133F48E672%21s2c73b2c00ef94b319fd70d82288bec82&id=documents&wd=target%28Linearkombinationen.one%7C9A4C3841-EE0C-4AFA-8706-0A8A255C61B2%2FLinearkombinationen%2C%20lineare%20Unabh%C3%A4ngigkeit%2C%20Basen%7C16CA8DB9-21F8-4DA5-8D69-E0F33835733F%2F%29&wdpartid={DFD224D4-B968-4773-AA0B-89CC2749C977}{1}&wdsectionfileid=E1A89B133F48E672!s2b27107b91f74213818269ca24ba0ee6onenote:https://d.docs.live.net/E1A89B133F48E672/Documents/School/EEIT%20TUM/1st%20Semester/Lineare%20Algebra/Linearkombinationen.one#Linearkombinationen,%20lineare%20Unabhängigkeit,%20Basen&section-id={9A4C3841-EE0C-4AFA-8706-0A8A255C61B2}&page-id={16CA8DB9-21F8-4DA5-8D69-E0F33835733F}&object-id={B9AEBEE8-B2ED-485C-912A-32F91118B3EB}&10
+\begin{sectionbox}
+    \subsection{Dimension}
+    Menge an lin. unabh. Vektoren eines VRs ($f: V\rightarrow W$ lin.)\\
+    \textbf{Rang:} $\Rang f := \dim(\Bild f)$
+
+    \textbf{Dimensionssatz:} $\dim V = \dim(\Kern f) + \dim(\Bild f)$
+    \begin{itemize}
+        \item $\dim V = 0 \equival V=\{0\}$
+    \end{itemize}
+\end{sectionbox}
+
+\begin{sectionbox}
+    \subsection{Vektoraumisomorphismus}
+    Zwei VRs sind isomorph $V \tilde{=} W$ genau dann, wenn
+    \begin{itemize}
+        \item Man eine bijektive lin. Abb. finden kann, die eine Basis von $V$ auf eine Basis von $W$ abbildet
+        \item $\dim V = \dim W$
+    \end{itemize}
+    \textbf{Koordinatensystem:} Isomorphismus $\Phi:K^n \rightarrow V$
+\end{sectionbox}
+
+CONTINUE: Section: Lin. Abbildungen und Matrizen
 
 \label{LastPage}
 \end{document}
