@@ -282,6 +282,8 @@ CONTINUE: Determinanten und Bilinearform
 \begin{sectionbox}
     \subsubsection{Basiswechselmatrix allg.}
     $[v]_{B_{neu}}=P_{B_{neu} \leftarrow B_{alt}}[v]_{B_{alt}}$\\
+    $[v]_{B_{neu}}=(a_1,...,a_n)^T$ mit $[v]_{B_{alt}}\overset{!}{=}a_1[b_{1,neu}]_{B_{alt}} + ... + a_n[b_{n,neu}]_{B_{alt}}$\\
+
     Basiswechselmatrix finden, die $B_{alt}$ zu $B_{neu}$ abbildet:
     \begin{enumerate}
         \item Nimm den $j$-ten ($v_j$) Basisvektor aus $B_{alt}$
@@ -303,23 +305,36 @@ CONTINUE: Determinanten und Bilinearform
 
 \begin{sectionbox}
     \subsection{Darstellungsmatrix $D$}
+    $D_{\text{Basis im Definitionsraum, Basis im Bildraum}}$\\
     Beschreibt die Bilder der Basisvektoren einer lin. Abb.\\
 
     \subsubsection{Basiswechsel mit Basiswechselmatrix}
     Basiswechsel im Definitionsraum mit neuer Basis $B_{neu}$:\\
-    $D_{B_{neu}, B}=D_{B_{alt},B} \times P_{B_{alt} \leftarrow B_{neu}}$
+    $D_{B_{neu}, B}=D_{B_{alt},B} \times P_{B_{alt} \leftarrow B_{neu}}$\\
+    $D_{B_{neu}, B}=\begin{bmatrix}
+            [f(b_{1, neu})]_B, ..., [f(b_{n,neu})]_B
+        \end{bmatrix}$\\
 
     Basiswechsel im Bildraum mit neuer Basis $B_{neu}$:\\
-    $D_{B, B_{neu}}=P_{B_{neu} \leftarrow B_{alt}} \times D_{B, B_{alt}}$
+    $D_{B, B_{neu}}=P_{B_{neu} \leftarrow B_{alt}} \times D_{B, B_{alt}}$\\
+    $D_{B, B_{neu}}=\begin{bmatrix}
+            [f(b_1)]_{B_{neu}}, ..., [f(b_n)]_{B_{neu}}
+        \end{bmatrix}$\\
+
+    Basiswechsel im Definitionsraum mit $B_{neu}$ und Bildraum mit $C_{neu}$:\\
+    $D_{B_{neu}, C_{neu}}=P_{C_{neu} \leftarrow C_{alt}} \times D_{B_{alt},C_{alt}} \times P_{B_{alt} \leftarrow B_{neu}}$\\
+    $D_{B_{neu}, C_{neu}}=\begin{bmatrix}
+            [f(b_{1, neu})]_{C_{neu}},...,[f(b_{n, neu})]_{C_{neu}} \\
+        \end{bmatrix}$\\
 
     \subsubsection{Spezialfälle}
-    Basiswechsel im Definitionsraum mit Standard-Basis im Bildraum:\\
+    \textbf{Basiswechsel im Definitionsraum mit Standard-Basis im Bildraum:}\\
     Bilder der neuen Basisvektoren sind die Spalten der Darstellungsmatrix\\
 
-    Basiswechsel im Bildraum mit Standard-Basis im Definitionsraum:\\
-    Die Bilder der Standard-Basisvektoren ausgedrückt in der neuen Basis $\{b_1, ..., b_n\}$ bilden die Spalten der Darstellungsmatrix:
-    $f(e_n)\overset{!}{=}a_1b_1 + ... + a_nb_n$.
-    Die Koeffizienten bilden die Spalten der Darstellungsmatrix.
+    \textbf{Basiswechsel im Bildraum mit Standard-Basis im Definitionsraum:}\\
+    Drücke die Bilder der Standard-Basisvektoren in der neuen Basis $\{b_1, ..., b_n\}$ aus:
+    $f(e_j)\overset{!}{=}a_1b_1 + ... + a_nb_n$.
+    Die Koeffizienten $a_1,...,a_n$ bilden die Spalten der Darstellungsmatrix.
 \end{sectionbox}
 
 \subsection{Determinanten}
@@ -343,7 +358,7 @@ $\begin{array}{c|c|c|c}
         \text{Term} & \text{Spalte} & \text{sign} & \text{\# Vertauschungen} \\ \hline
         aei         & (1,2,3)       & +           & 0                        \\
         afg         & (1,3,2)       & -           & 1                        \\
-        bfg         & (2,3,1)       & -           & 2
+        bfg         & (2,3,1)       & +           & 2
     \end{array}$
 
 \subsection{euklidische Vektorräume}
@@ -476,7 +491,7 @@ Vektorräume über $\mathbb C$, wobei gilt
         \item $f$ ist diagonalisierbar, falls $V$ eine Basis aus Eigenvektoren besitzt
         \item $D_f \in K^{n\times n}$ ist diagonalisierbar, falls $B^{-1}D_fB$ Diagonalgestalt hat ($B$: Basiswechselmatrix, $D_f$: Darstellungsmatrix)
         \item $V$ kann als direkte Summe aller Eigenräume geschrieben werden: $\dim E_{\lambda_1} + ... + \dim E_{\lambda_k}=\dim V$. Die Basis aus Eigenvektoren bildet sich aus der Vereinigung der Basen der Eigenräume.\\
-        \textit{Hat man z.B. zwei Mal den gleichen Eigenwert $\mu$, so ist $A$ nur diagonalisierbar, falls $\dim E_\mu=2$ ist. Es also zwei Eigenvektoren zu dem Eigenwert $\mu$ gibt}
+              \textit{Hat man z.B. zwei Mal den gleichen Eigenwert $\mu$, so ist $A$ nur diagonalisierbar, falls $\dim E_\mu=2$ ist. Es also zwei Eigenvektoren zu dem Eigenwert $\mu$ gibt}
         \item Jede Selbstadjungierte ($f^*=f$) ist diagonalisierbar mit einer Orthonormalbasis aus Eigenvektoren
     \end{itemize}
 \end{sectionbox}

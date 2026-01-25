@@ -207,6 +207,7 @@ $L(V,W):=\{\Phi: V \rightarrow W | \Phi \text{ linear} \}$
 \begin{sectionbox}
     \subsubsection{Basiswechselmatrix allg.}
     $[v]_{B_{neu}}=P_{B_{neu} \leftarrow B_{alt}}[v]_{B_{alt}}$\\
+    $[v]_{B_{neu}}=(a_1,...,a_n)^T$ mit $[v]_{B_{alt}}\overset{!}{=}a_1[b_{1,neu}]_{B_{alt}} + ... + a_n[b_{n,neu}]_{B_{alt}}$\\
     Basiswechselmatrix finden, die $B_{alt}$ zu $B_{neu}$ abbildet:
     \begin{enumerate}
         \item Nimm den $j$-ten ($v_j$) Basisvektor aus $B_{alt}$
@@ -232,19 +233,22 @@ $L(V,W):=\{\Phi: V \rightarrow W | \Phi \text{ linear} \}$
 
     \subsubsection{Basiswechsel mit Basiswechselmatrix}
     Basiswechsel im Definitionsraum mit neuer Basis $B_{neu}$:\\
-    $D_{B_{neu}, B}=D_{B_{alt},B} \times P_{B_{alt} \leftarrow B_{neu}}$
+    $D_{B_{neu}, B}=D_{B_{alt},B} \times P_{B_{alt} \leftarrow B_{neu}}$\\
+    $D_{B_{neu}, B}=\begin{bmatrix}
+            [f(b_{1, neu})]_B, ..., [f(b_{n,neu})]_B
+        \end{bmatrix}$\\
 
     Basiswechsel im Bildraum mit neuer Basis $B_{neu}$:\\
-    $D_{B, B_{neu}}=P_{B_{neu} \leftarrow B_{alt}} \times D_{B, B_{alt}}$
+    $D_{B, B_{neu}}=P_{B_{neu} \leftarrow B_{alt}} \times D_{B, B_{alt}}$\\
+    $D_{B, B_{neu}}=\begin{bmatrix}
+            [f(b_1)]_{B_{neu}}, ..., [f(b_n)]_{B_{neu}}
+        \end{bmatrix}$\\
 
-    \subsubsection{Spezialfälle}
-    Basiswechsel im Definitionsraum mit Standard-Basis im Bildraum:\\
-    Bilder der neuen Basisvektoren sind die Spalten der Darstellungsmatrix\\
-
-    Basiswechsel im Bildraum mit Standard-Basis im Definitionsraum:\\
-    Die Bilder der Standard-Basisvektoren ausgedrückt in der neuen Basis $\{b_1, ..., b_n\}$ bilden die Spalten der Darstellungsmatrix:
-    $f(e_n)\overset{!}{=}a_1b_1 + ... + a_nb_n$.
-    Die Koeffizienten bilden die Spalten der Darstellungsmatrix.
+    Basiswechsel im Definitionsraum mit $B_{neu}$ und Bildraum mit $C_{neu}$:\\
+    $D_{B_{neu}, C_{neu}}=P_{C_{neu} \leftarrow C_{alt}} \times D_{B_{alt},C_{alt}} \times P_{B_{alt} \leftarrow B_{neu}}$\\
+    $D_{B_{neu}, C_{neu}}=\begin{bmatrix}
+            [f(b_{1, neu})]_{C_{neu}},...,[f(b_{n, neu})]_{C_{neu}} \\
+        \end{bmatrix}$
 \end{sectionbox}
 
 \subsection{Determinanten}
@@ -270,7 +274,7 @@ $L(V,W):=\{\Phi: V \rightarrow W | \Phi \text{ linear} \}$
     \begin{enumerate}
         \item \textbf{Polarisation:} $\langle v,w \rangle = \frac{1}{4}(||v+w||^2-||v-w||^2)$
         \item \textbf{Parallelogrammgleichung:}\\
-        $2(||v||^2+||w||^2)=||v+w||^2+||v-w||^2$
+              $2(||v||^2+||w||^2)=||v+w||^2+||v-w||^2$
     \end{enumerate}
 
     Für eine bel. Norm gilt: Die Parallelogrammgleichung gilt \equival \: Die Norm kommt von einem Skalarprodukt. Dann erhält man das Skalarprodukt durch Polarisation und es gilt: $||v||=\sqrt{\langle v, v \rangle}$.
@@ -279,11 +283,11 @@ $L(V,W):=\{\Phi: V \rightarrow W | \Phi \text{ linear} \}$
 \begin{sectionbox}
     \subsubsection{Skalarprodukt}
     $\langle x, y\rangle = x^TEy$
-\begin{itemize}
-    \item bilinear: $\langle a,b+c\rangle = \langle a,b\rangle + \langle a,c \rangle$
-    \item symmetr.: $\langle a,b \rangle = \langle b,a \rangle$
-    \item pos. definit: $\langle v,v\rangle > 0$ oder $\langle v,v\rangle = 0 \Rightarrow v = 0$
-\end{itemize}
+    \begin{itemize}
+        \item bilinear: $\langle a,b+c\rangle = \langle a,b\rangle + \langle a,c \rangle$
+        \item symmetr.: $\langle a,b \rangle = \langle b,a \rangle$
+        \item pos. definit: $\langle v,v\rangle > 0$ oder $\langle v,v\rangle = 0 \Rightarrow v = 0$
+    \end{itemize}
 \end{sectionbox}
 
 \begin{sectionbox}
@@ -293,7 +297,7 @@ $L(V,W):=\{\Phi: V \rightarrow W | \Phi \text{ linear} \}$
         \item $||\lambda v||=|\lambda| \: ||v|| \quad \forall \lambda \in \mathbb R, v \in V$
         \item $||a|| > 0$ oder $||a|| = 0 \Rightarrow a = 0$
         \item $\forall v,w \in V$ gilt die Dreiecksungleichung: \\
-        $||v + w|| \le ||v|| + ||w||$
+              $||v + w|| \le ||v|| + ||w||$
     \end{itemize}
 \end{sectionbox}
 
